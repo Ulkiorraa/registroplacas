@@ -10,23 +10,13 @@ public class Utils {
     public static Stage getCurrentStage(ActionEvent event) {
         Node node = (Node) event.getSource();
         Scene scene = node.getScene();
-        if (scene != null) {
-            Window window = scene.getWindow();
-            if (window instanceof Stage) {
-                return (Stage) window;
-            }
-        }
-        return null;
+        Window window = scene.getWindow();
+        return (Stage) window;
     }
 
     public static Stage getCurrentStage(Node node) {
         Scene scene = node.getScene();
-        if (scene != null) {
-            Window window = scene.getWindow();
-            if (window instanceof Stage) {
-                return (Stage) window;
-            }
-        }
-        return null;
+        Window window = scene.getWindow();
+        return (Stage) window;
     }
 }

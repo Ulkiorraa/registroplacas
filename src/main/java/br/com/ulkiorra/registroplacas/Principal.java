@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 public class Principal extends Application {
     @Override
@@ -26,7 +25,6 @@ public class Principal extends Application {
     }
 
     public static void main(String[] args) {
-        Connection conn = ConnectionFactory.getConnection();
         launch();
         ConnectionFactory.closeConnection();
     }

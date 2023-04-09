@@ -82,7 +82,7 @@ public class PrincipalController implements Initializable, DataChangedListner {
     @FXML
     void onCadUser() {
         Stage parentStage = Utils.getCurrentStage(principalWindow);
-        createDialogorm(parentStage);
+        createDialogorm(parentStage, "view/cadastroUserView.fxml", "Cadastro de Usuário");
     }
 
     @FXML
@@ -132,14 +132,14 @@ public class PrincipalController implements Initializable, DataChangedListner {
         }
     }
 
-    private void createDialogorm(Stage parentStage) {
+    private void createDialogorm(Stage parentStage, String resource, String title) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource("view/cadastroUserView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource(resource));
             Pane pane = fxmlLoader.load();
             CadastroUserController controller = fxmlLoader.getController();
             controller.subscribeDataChangeListener(this);
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Cadastro de Usuário");
+            dialogStage.setTitle(title);
             dialogStage.setScene(new Scene(pane));
             dialogStage.setResizable(false);
             dialogStage.initOwner(parentStage);

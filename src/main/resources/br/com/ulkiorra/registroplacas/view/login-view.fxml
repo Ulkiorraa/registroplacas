@@ -12,32 +12,26 @@
 <?import javafx.scene.text.Font?>
 
 <VBox fx:id="tela_login" alignment="CENTER" prefHeight="409.0" prefWidth="625.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ulkiorra.registroplacas.controller.LoginController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-   <children>
-      <AnchorPane prefHeight="394.0" prefWidth="613.0">
-         <children>
-            <ImageView fitHeight="180.0" fitWidth="322.0" layoutX="180.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="158.0">
-               <image>
-                  <Image url="@../drawable/placa_normal_par.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="92.0" layoutY="185.0" text="Usuário:">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtuser" layoutX="169.0" layoutY="185.0" prefHeight="25.0" prefWidth="230.0" />
-            <Label layoutX="105.0" layoutY="234.0" text="Senha:">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="txtpass" layoutX="169.0" layoutY="234.0" prefHeight="25.0" prefWidth="230.0" />
-            <Button fx:id="btnenter" layoutX="169.0" layoutY="305.0" mnemonicParsing="false" onAction="#onClickenter" prefHeight="34.0" prefWidth="78.0" text="Entrar" />
-            <Button fx:id="btncancel" layoutX="321.0" layoutY="305.0" mnemonicParsing="false" onAction="#onClickcancel" prefHeight="34.0" prefWidth="78.0" text="Cancelar" />
-         </children>
-      </AnchorPane>
-   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <AnchorPane prefHeight="394.0" prefWidth="613.0">
+      <ImageView fitHeight="180.0" fitWidth="322.0" layoutX="180.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="158.0">
+         <Image url="@../drawable/placa_normal_par.png" />
+      </ImageView>
+      <Label layoutX="92.0" layoutY="185.0" text="Usuário:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtuser" layoutX="169.0" layoutY="185.0" prefHeight="25.0" prefWidth="230.0" />
+      <Label layoutX="105.0" layoutY="234.0" text="Senha:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="txtpass" layoutX="169.0" layoutY="234.0" prefHeight="25.0" prefWidth="230.0" />
+      <Button layoutX="169.0" layoutY="305.0" mnemonicParsing="false" onAction="#onClickenter" prefHeight="34.0" prefWidth="78.0" text="Entrar" />
+      <Button layoutX="321.0" layoutY="305.0" mnemonicParsing="false" onAction="#onClickcancel" prefHeight="34.0" prefWidth="78.0" text="Cancelar" />
+   </AnchorPane>
 </VBox>
