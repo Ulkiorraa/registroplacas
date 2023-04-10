@@ -75,14 +75,19 @@ public class PrincipalController implements Initializable, DataChangedListner {
     }
 
     @FXML
-    void onCadPlacas(ActionEvent event) {
+    void onCadPlacas() {
+        Stage parentStage = Utils.getCurrentStage(principalWindow);
+        createDialogoform(parentStage, "view/cadastroPlacasView.fxml", "Cadastro de Placas", (CadastroPlacasController controller) -> {
 
+        });
     }
 
     @FXML
     void onCadUser() {
         Stage parentStage = Utils.getCurrentStage(principalWindow);
-        createDialogorm(parentStage, "view/cadastroUserView.fxml", "Cadastro de Usuário");
+        createDialogoform(parentStage, "view/cadastroUserView.fxml", "Cadastro de Usuário", (CadastroUserController controller) -> {
+            controller.subscribeDataChangeListener(this);
+        });
     }
 
     @FXML
@@ -132,12 +137,12 @@ public class PrincipalController implements Initializable, DataChangedListner {
         }
     }
 
-    private void createDialogorm(Stage parentStage, String resource, String title) {
+    private synchronized  <T> void createDialogoform(Stage parentStage, String resource, String title, Consumer<T> initializeAction) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource(resource));
             Pane pane = fxmlLoader.load();
-            CadastroUserController controller = fxmlLoader.getController();
-            controller.subscribeDataChangeListener(this);
+            T controller = fxmlLoader.getController();
+            initializeAction.accept(controller);
             Stage dialogStage = new Stage();
             dialogStage.setTitle(title);
             dialogStage.setScene(new Scene(pane));
