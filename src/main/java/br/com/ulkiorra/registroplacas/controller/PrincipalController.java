@@ -78,7 +78,7 @@ public class PrincipalController implements Initializable, DataChangedListner {
     void onCadPlacas() {
         Stage parentStage = Utils.getCurrentStage(principalWindow);
         createDialogoform(parentStage, "view/cadastroPlacasView.fxml", "Cadastro de Placas", (CadastroPlacasController controller) -> {
-
+            controller.subscribeDataChangeListener(this);
         });
     }
 

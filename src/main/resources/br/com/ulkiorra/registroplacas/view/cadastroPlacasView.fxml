@@ -9,46 +9,54 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="446.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="br.com.ulkiorra.registroplacas.controller.CadastroPlacasController">
-   <TextField fx:id="txt_placa" layoutX="165.0" layoutY="89.0" prefHeight="25.0" prefWidth="255.0"/>
-   <ComboBox fx:id="txt_cliente" layoutX="165.0" layoutY="116.0" prefHeight="25.0" prefWidth="255.0"/>
-   <DatePicker fx:id="txt_date" layoutX="165.0" layoutY="142.0" prefHeight="25.0" prefWidth="255.0"/>
-   <ComboBox fx:id="txt_status" layoutX="165.0" layoutY="169.0" prefHeight="25.0" prefWidth="255.0"/>
-   <TextArea fx:id="txt_observacao" layoutX="165.0" layoutY="199.0" prefHeight="135.0" prefWidth="255.0"/>
-   <Button layoutX="165.0" layoutY="357.0" mnemonicParsing="false" onAction="#onClickCad" prefHeight="66.0"
-           prefWidth="88.0" text="Cadastar"/>
-   <Button layoutX="332.0" layoutY="357.0" mnemonicParsing="false" onAction="#onClickCancel" prefHeight="66.0"
-           prefWidth="88.0" text="Cancelar"/>
+<AnchorPane prefHeight="498.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ulkiorra.registroplacas.controller.CadastroPlacasController">
+   <TextField fx:id="txt_placa" layoutX="165.0" layoutY="89.0" prefHeight="25.0" prefWidth="255.0" />
+   <ComboBox fx:id="txt_cliente" layoutX="165.0" layoutY="116.0" prefHeight="25.0" prefWidth="255.0" />
+   <DatePicker fx:id="txt_date" layoutX="165.0" layoutY="142.0" prefHeight="25.0" prefWidth="255.0" />
+   <ComboBox fx:id="txt_status" layoutX="165.0" layoutY="169.0" prefHeight="25.0" prefWidth="255.0" />
+   <TextField fx:id="txt_nome" layoutX="165.0" layoutY="196.0" prefHeight="25.0" prefWidth="255.0" />
+   <TextField fx:id="txt_telefone" layoutX="165.0" layoutY="223.0" prefHeight="25.0" prefWidth="255.0" />
+   <TextArea fx:id="txt_observacao" layoutX="165.0" layoutY="256.0" prefHeight="135.0" prefWidth="255.0" />
+   <Button layoutX="165.0" layoutY="400.0" mnemonicParsing="false" onAction="#onClickCad" prefHeight="66.0" prefWidth="88.0" text="Cadastar" />
+   <Button layoutX="332.0" layoutY="400.0" mnemonicParsing="false" onAction="#onClickCancel" prefHeight="66.0" prefWidth="88.0" text="Cancelar" />
    <Label layoutX="96.0" layoutY="14.0" text="Cadastro de Placas">
       <font>
-         <Font name="System Bold" size="30.0"/>
+         <Font name="System Bold" size="30.0" />
       </font>
    </Label>
    <Label contentDisplay="RIGHT" layoutX="106.0" layoutY="88.0" prefHeight="27.0" prefWidth="54.0" text="Placa:">
       <font>
-         <Font name="System Bold" size="18.0"/>
+         <Font name="System Bold" size="18.0" />
       </font>
    </Label>
    <Label layoutX="63.0" layoutY="115.0" prefHeight="27.0" prefWidth="97.0" text="Solicitante:">
       <font>
-         <Font name="System Bold" size="18.0"/>
+         <Font name="System Bold" size="18.0" />
       </font>
    </Label>
    <Label layoutX="19.0" layoutY="141.0" prefHeight="27.0" prefWidth="143.0" text="Data Fabricação:">
       <font>
-         <Font name="System Bold" size="18.0"/>
+         <Font name="System Bold" size="18.0" />
       </font>
    </Label>
    <Label layoutX="101.0" layoutY="168.0" prefHeight="27.0" prefWidth="60.0" text="Status:">
       <font>
-         <Font name="System Bold" size="18.0"/>
+         <Font name="System Bold" size="18.0" />
       </font>
    </Label>
-   <Label layoutX="55.0" layoutY="195.0" prefHeight="27.0" prefWidth="106.0" text="Observação:">
+   <Label layoutX="53.0" layoutY="249.0" prefHeight="27.0" prefWidth="106.0" text="Observação:">
       <font>
-         <Font name="System Bold" size="18.0"/>
+         <Font name="System Bold" size="18.0" />
+      </font>
+   </Label>
+   <Label layoutX="101.0" layoutY="195.0" prefHeight="27.0" prefWidth="60.0" text="Nome:">
+      <font>
+         <Font name="System Bold" size="18.0" />
+      </font>
+   </Label>
+   <Label layoutX="80.0" layoutY="222.0" prefHeight="27.0" prefWidth="80.0" text="Telefone:">
+      <font>
+         <Font name="System Bold" size="18.0" />
       </font>
    </Label>
 </AnchorPane>

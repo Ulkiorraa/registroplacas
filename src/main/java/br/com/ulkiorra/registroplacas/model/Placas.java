@@ -1,28 +1,56 @@
 package br.com.ulkiorra.registroplacas.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Placas {
     Long id;
     String placa;
-    Client solicitante;
+    String telefone;
+    String nome;
     Status status;
     String observation;
-    LocalDateTime dateEstampagem;
-    LocalDateTime dateFinalizacao;
+    String vendedor;
+    LocalDate dateEstampagem;
+    LocalDate dateFinalizacao;
 
 
     public Placas() {
     }
 
-    public Placas(Long id, String placa, Client solicitante, Status status, String observation, LocalDateTime dateEstampagem, LocalDateTime dateFinalizacao) {
+    public Placas(Long id, String placa, String telefone, String nome, Status status, String observation, String vendedor, LocalDate dateEstampagem, LocalDate dateFinalizacao) {
         this.id = id;
         this.placa = placa;
-        this.solicitante = solicitante;
+        this.telefone = telefone;
+        this.nome = nome;
         this.status = status;
         this.observation = observation;
+        this.vendedor = vendedor;
         this.dateEstampagem = dateEstampagem;
         this.dateFinalizacao = dateFinalizacao;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
     }
 
     public Long getId() {
@@ -41,14 +69,6 @@ public class Placas {
         this.placa = placa;
     }
 
-    public Client getSolicitante() {
-        return solicitante;
-    }
-
-    public void setSolicitante(Client solicitante) {
-        this.solicitante = solicitante;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -65,19 +85,19 @@ public class Placas {
         this.observation = observation;
     }
 
-    public LocalDateTime getDateEstampagem() {
+    public LocalDate getDateEstampagem() {
         return dateEstampagem;
     }
 
-    public void setDateEstampagem(LocalDateTime dateEstampagem) {
+    public void setDateEstampagem(LocalDate dateEstampagem) {
         this.dateEstampagem = dateEstampagem;
     }
 
-    public LocalDateTime getDateFinalizacao() {
+    public LocalDate getDateFinalizacao() {
         return dateFinalizacao;
     }
 
-    public void setDateFinalizacao(LocalDateTime dateFinalizacao) {
+    public void setDateFinalizacao(LocalDate dateFinalizacao) {
         this.dateFinalizacao = dateFinalizacao;
     }
 }

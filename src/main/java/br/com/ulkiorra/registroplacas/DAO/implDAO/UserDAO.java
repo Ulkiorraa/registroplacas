@@ -45,7 +45,7 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public void delete(User id) {
+    public void delete(Long id) {
 
     }
 

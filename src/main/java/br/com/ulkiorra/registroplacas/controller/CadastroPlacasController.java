@@ -1,22 +1,41 @@
 package br.com.ulkiorra.registroplacas.controller;
 
+import br.com.ulkiorra.registroplacas.DAO.DaoFactory;
+import br.com.ulkiorra.registroplacas.DAO.IClientDAO;
+import br.com.ulkiorra.registroplacas.DAO.IPlacasDAO;
+import br.com.ulkiorra.registroplacas.listeners.DataChangedListner;
 import br.com.ulkiorra.registroplacas.model.Client;
+import br.com.ulkiorra.registroplacas.model.Placas;
 import br.com.ulkiorra.registroplacas.model.Status;
+import br.com.ulkiorra.registroplacas.util.Alerts;
+import br.com.ulkiorra.registroplacas.util.Formatter;
 import br.com.ulkiorra.registroplacas.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class CadastroPlacasController {
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class CadastroPlacasController implements Initializable {
+
+    private final List<DataChangedListner> dataChangeListeners = new ArrayList<>();
 
     @FXML
-    private ComboBox<Client> txt_cliente;
+    private ComboBox<String> txt_cliente;
 
     @FXML
     private DatePicker txt_date;
+
+    @FXML
+    private TextField txt_nome;
 
     @FXML
     private TextArea txt_observacao;
@@ -28,12 +47,101 @@ public class CadastroPlacasController {
     private ComboBox<Status> txt_status;
 
     @FXML
-    void onClickCad(ActionEvent event) {
+    private TextField txt_telefone;
 
+    @FXML
+    void onClickCad(ActionEvent event) {
+        IPlacasDAO iPlacasDAO = DaoFactory.createPlacasDAO();
+        String placa = txt_placa.getText().toUpperCase().trim();
+        Status status = txt_status.getValue();
+        String observation = txt_observacao.getText().trim();
+        LocalDate dataestampagem = txt_date.getValue();
+        String name = txt_nome.getText().trim();
+        String fone = txt_telefone.getText().trim();
+
+        if (placa.isEmpty()) {
+            Alerts.mostrarMensagemDeErro("Erro", null, "Placa é um campo obrigatório!");
+            return;
+        }
+        if (status == null) {
+            Alerts.mostrarMensagemDeErro("Erro", null, "Status é um campo obrigatório!");
+            return;
+        }
+        if (dataestampagem == null) {
+            Alerts.mostrarMensagemDeErro("Erro", null, "Data da estampagem é um campo obrigatório!");
+            return;
+        }
+        if (name.isEmpty()) {
+            Alerts.mostrarMensagemDeErro("Erro", null, "Nome é um campo obrigatório!");
+            return;
+        }
+        if (fone.isEmpty()) {
+            Alerts.mostrarMensagemDeErro("Erro", null, "Telefone é um campo obrigatório!");
+            return;
+        }
+        Placas placa1 = new Placas();
+        placa1.setPlaca(placa);
+        placa1.setStatus(status);
+        placa1.setObservation(observation);
+        placa1.setDateEstampagem(dataestampagem);
+        placa1.setNome(name);
+        placa1.setTelefone(fone);
+
+        Placas cadastroComSucesso = iPlacasDAO.create(placa1);
+        if (cadastroComSucesso != null) {
+            Alerts.mostrarMensagem("Information", null, "Cadastro bem sucedido!");
+            notifyDataChangeListeners();
+        } else {
+            Alerts.mostrarMensagemDeErro("Erro", null, "Cadastro falhou!");
+        }
+
+        Utils.getCurrentStage(event).close();
     }
 
     @FXML
     void onClickCancel(ActionEvent event) {
         Utils.getCurrentStage(event).close();
     }
+
+    public void subscribeDataChangeListener(DataChangedListner listner) {
+        dataChangeListeners.add(listner);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        IClientDAO iClientDAO = DaoFactory.createClientDAO();
+        List<Client> opList = iClientDAO.FindAll();
+        txt_cliente.getItems().add("none");
+        for (Client e : opList) {
+            txt_cliente.getItems().add(e.getNome());
+        }
+
+        txt_placa.textProperty().addListener((observable, oldValue, newValue) -> {
+            txt_placa.setText(newValue.toUpperCase());
+        });
+        txt_placa.setTextFormatter(Formatter.PlacasFormatter());
+        txt_nome.setTextFormatter(Formatter.noNumberFormatter());
+        txt_telefone.setTextFormatter(Formatter.noLettersFormatter());
+
+        txt_cliente.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.equals("none")) {
+                Client selectedClient = iClientDAO.FindByName(newValue);
+                if (selectedClient != null) {
+                    txt_nome.setText(selectedClient.getNome());
+                    txt_telefone.setText(selectedClient.getTelefone());
+                }
+            } else {
+                txt_nome.clear();
+                txt_telefone.clear();
+            }
+        });
+
+    }
+
+    private void notifyDataChangeListeners() {
+        for (DataChangedListner listener : dataChangeListeners) {
+            listener.onDataChanged();
+        }
+    }
+
 }

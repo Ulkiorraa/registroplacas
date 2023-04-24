@@ -1,23 +1,43 @@
 package br.com.ulkiorra.registroplacas.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-public abstract class Client {
+public class Client {
     Long id;
     String nome;
+    String cpf;
+    String cnpj;
     String telefone;
     String email;
-    LocalDateTime dateCad;
+    LocalDate dateCad;
 
     public Client() {
     }
 
-    public Client(Long id, String nome, String telefone, String email, LocalDateTime dateCad) {
+    public Client(Long id, String nome, String cpf, String cnpj, String telefone, String email, LocalDate dateCad) {
         this.id = id;
         this.nome = nome;
+        this.cpf = cpf;
+        this.cnpj = cnpj;
         this.telefone = telefone;
         this.email = email;
         this.dateCad = dateCad;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public Long getId() {
@@ -52,11 +72,11 @@ public abstract class Client {
         this.email = email;
     }
 
-    public LocalDateTime getDateCad() {
+    public LocalDate getDateCad() {
         return dateCad;
     }
 
-    public void setDateCad(LocalDateTime dateCad) {
+    public void setDateCad(LocalDate dateCad) {
         this.dateCad = dateCad;
     }
 }

@@ -28,4 +28,30 @@ public class Formatter {
             return null;
         });
     }
+
+    public static TextFormatter<String>  noLettersFormatter(){
+        return new TextFormatter<>(change -> {
+            if (change.isDeleted()) {
+                return change;
+            }
+            String newText = change.getControlNewText();
+            if (newText.matches("^[0-9]+$")) {
+                return change;
+            }
+            return null;
+        });
+    }
+
+    public static TextFormatter<String>  PlacasFormatter(){
+        return new TextFormatter<>(change -> {
+            if (change.isDeleted()) {
+                return change;
+            }
+            String newText = change.getControlNewText();
+            if (newText.matches("^[a-zA-Z0-9]{1,7}$")) {
+                return change;
+            }
+            return null;
+        });
+    }
 }
