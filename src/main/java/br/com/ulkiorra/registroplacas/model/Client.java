@@ -5,6 +5,8 @@ import java.time.LocalDate;
 public class Client {
     Long id;
     String nome;
+    Float preco_par;
+    Float preco_und;
     String cpf;
     String cnpj;
     String telefone;
@@ -14,14 +16,32 @@ public class Client {
     public Client() {
     }
 
-    public Client(Long id, String nome, String cpf, String cnpj, String telefone, String email, LocalDate dateCad) {
+    public Client(Long id, String nome, Float preco_par, Float preco_und, String cpf, String cnpj, String telefone, String email, LocalDate dateCad) {
         this.id = id;
         this.nome = nome;
+        this.preco_par = preco_par;
+        this.preco_und = preco_und;
         this.cpf = cpf;
         this.cnpj = cnpj;
         this.telefone = telefone;
         this.email = email;
         this.dateCad = dateCad;
+    }
+
+    public Float getPreco_par() {
+        return preco_par;
+    }
+
+    public void setPreco_par(Float preco_par) {
+        this.preco_par = preco_par;
+    }
+
+    public Float getPreco_und() {
+        return preco_und;
+    }
+
+    public void setPreco_und(Float preco_und) {
+        this.preco_und = preco_und;
     }
 
     public String getCpf() {

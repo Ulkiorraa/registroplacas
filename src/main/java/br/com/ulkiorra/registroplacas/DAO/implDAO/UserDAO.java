@@ -4,6 +4,7 @@ import br.com.ulkiorra.registroplacas.DAO.IUserDAO;
 import br.com.ulkiorra.registroplacas.config.ConnectionFactory;
 import br.com.ulkiorra.registroplacas.config.DbException;
 import br.com.ulkiorra.registroplacas.model.User;
+import br.com.ulkiorra.registroplacas.util.Encript;
 
 import java.sql.*;
 import java.util.List;
@@ -24,7 +25,7 @@ public class UserDAO implements IUserDAO {
             String query = "INSERT INTO user(user, senha)VALUES (?, ?)";
             st = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, user.getUser());
-            st.setString(2, user.getPassword());
+            st.setString(2, Encript.encryptSHA1(user.getPassword()));
             st.executeUpdate();
             rs = st.getGeneratedKeys();
             rs.next();

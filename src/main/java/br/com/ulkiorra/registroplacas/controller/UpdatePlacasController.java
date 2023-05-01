@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CadastroPlacasController implements Initializable {
+public class UpdatePlacasController implements Initializable {
+
+    private Placas entity;
 
     private final List<DataChangedListner> dataChangeListeners = new ArrayList<>();
 
@@ -64,6 +66,10 @@ public class CadastroPlacasController implements Initializable {
 
     @FXML
     private TextField txt_telefone;
+
+    public void setEntity(Placas entity) {
+        this.entity = entity;
+    }
 
     @FXML
     void onClickCad(ActionEvent event) {
@@ -112,6 +118,7 @@ public class CadastroPlacasController implements Initializable {
             return;
         }
         Placas placa1 = new Placas();
+        placa1.setId(entity.getId());
         placa1.setPlaca(placa);
         placa1.setClientId(clientID);
         placa1.setStatus(status);
@@ -124,12 +131,12 @@ public class CadastroPlacasController implements Initializable {
         placa1.setPreco(preco);
         placa1.setTipo(tipo);
 
-        Placas cadastroComSucesso = iPlacasDAO.create(placa1);
+        Placas cadastroComSucesso = iPlacasDAO.update(placa1);
         if (cadastroComSucesso != null) {
-            Alerts.mostrarMensagem("Information", null, "Cadastro bem sucedido!");
+            Alerts.mostrarMensagem("Information", null, "Update bem sucedido!");
             notifyDataChangeListeners();
         } else {
-            Alerts.mostrarMensagemDeErro("Erro", null, "Cadastro falhou!");
+            Alerts.mostrarMensagemDeErro("Erro", null, "Update falhou!");
         }
 
         Utils.getCurrentStage(event).close();
@@ -181,8 +188,8 @@ public class CadastroPlacasController implements Initializable {
                         txt_preco.setText(selectedClient.getPreco_und().toString());
                     }
                     if (txt_tipo.getValue() == null){
-                        txt_cliente.setValue("none");
                         Alerts.mostrarMensagem("Escolha o tipo", null, "Escolha o tipo primeiro");
+                        return;
                     }
                 }
             } else {
@@ -200,6 +207,29 @@ public class CadastroPlacasController implements Initializable {
                 txt_datefinalizacao.setValue(null);
             }
         });
+    }
+
+    public void updateFormData(){
+        txt_placa.setText(String.valueOf(entity.getPlaca()));
+        txt_tipo.setValue(entity.getTipo());
+        txt_status.setValue(entity.getStatus());
+        txt_observacao.setText(entity.getObservation());
+        txt_date.setValue(entity.getDataestampagem());
+        txt_datefinalizacao.setValue(entity.getDatafinalizacao());
+        if(entity.getClientId() != null){
+            txt_idsolicitante.setText(entity.getClientId().toString());
+        }else {
+            txt_idsolicitante.setText("");
+        }
+        if (entity.getClientId() != null){
+            txt_cliente.setValue(entity.getClient_name());
+        }else {
+            txt_cliente.setValue("none");
+        }
+        txt_nome.setText(entity.getClient_name());
+        txt_telefone.setText(entity.getClient_fone());
+        txt_vendedor.setText(entity.getVendedor());
+        txt_preco.setText(entity.getPreco().toString());
     }
 
     private void notifyDataChangeListeners() {

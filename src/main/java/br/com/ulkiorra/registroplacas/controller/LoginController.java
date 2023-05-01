@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class LoginController {
     private TextField txtuser;
 
     @FXML
-    private VBox tela_login;
+    private ScrollPane tela_login;
 
     @FXML
     void onClickcancel(ActionEvent event) {
@@ -54,6 +53,8 @@ public class LoginController {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(Principal.class.getResource("view/principalView.fxml"));
                     ScrollPane scrollPane = fxmlLoader.load();
+                    scrollPane.setFitToHeight(true);
+                    scrollPane.setFitToWidth(true);
                     newScene = new Scene(scrollPane);
                     Stage newStage = new Stage();
                     newStage.setTitle("Sistema de cadastros");

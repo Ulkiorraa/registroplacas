@@ -4,45 +4,51 @@ import java.time.LocalDate;
 
 public class Placas {
     Long id;
+    Long clientId;
     String placa;
-    String telefone;
-    String nome;
+    Placa_Tipo tipo;
+    Float preco;
+    String client_fone;
+    String client_name;
     Status status;
     String observation;
     String vendedor;
-    LocalDate dateEstampagem;
-    LocalDate dateFinalizacao;
+    LocalDate dataestampagem;
+    LocalDate datafinalizacao;
 
 
     public Placas() {
     }
 
-    public Placas(Long id, String placa, String telefone, String nome, Status status, String observation, String vendedor, LocalDate dateEstampagem, LocalDate dateFinalizacao) {
+    public Placas(Long id, Long clientId, String placa, Placa_Tipo tipo, Float preco, String client_fone, String client_name, Status status, String observation, String vendedor, LocalDate dataestampagem, LocalDate datafinalizacao) {
         this.id = id;
+        this.clientId = clientId;
         this.placa = placa;
-        this.telefone = telefone;
-        this.nome = nome;
+        this.tipo = tipo;
+        this.preco = preco;
+        this.client_fone = client_fone;
+        this.client_name = client_name;
         this.status = status;
         this.observation = observation;
         this.vendedor = vendedor;
-        this.dateEstampagem = dateEstampagem;
-        this.dateFinalizacao = dateFinalizacao;
+        this.dataestampagem = dataestampagem;
+        this.datafinalizacao = datafinalizacao;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public Float getPreco() {
+        return preco;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setPreco(Float preco) {
+        this.preco = preco;
     }
 
-    public String getNome() {
-        return nome;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
     }
 
     public String getVendedor() {
@@ -85,19 +91,43 @@ public class Placas {
         this.observation = observation;
     }
 
-    public LocalDate getDateEstampagem() {
-        return dateEstampagem;
+    public Placa_Tipo getTipo() {
+        return tipo;
     }
 
-    public void setDateEstampagem(LocalDate dateEstampagem) {
-        this.dateEstampagem = dateEstampagem;
+    public void setTipo(Placa_Tipo tipo) {
+        this.tipo = tipo;
     }
 
-    public LocalDate getDateFinalizacao() {
-        return dateFinalizacao;
+    public String getClient_fone() {
+        return client_fone;
     }
 
-    public void setDateFinalizacao(LocalDate dateFinalizacao) {
-        this.dateFinalizacao = dateFinalizacao;
+    public void setClient_fone(String client_fone) {
+        this.client_fone = client_fone;
+    }
+
+    public String getClient_name() {
+        return client_name;
+    }
+
+    public void setClient_name(String client_name) {
+        this.client_name = client_name;
+    }
+
+    public LocalDate getDataestampagem() {
+        return dataestampagem;
+    }
+
+    public void setDataestampagem(LocalDate dataestampagem) {
+        this.dataestampagem = dataestampagem;
+    }
+
+    public LocalDate getDatafinalizacao() {
+        return datafinalizacao;
+    }
+
+    public void setDatafinalizacao(LocalDate datafinalizacao) {
+        this.datafinalizacao = datafinalizacao;
     }
 }

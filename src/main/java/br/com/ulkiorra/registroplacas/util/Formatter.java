@@ -35,7 +35,7 @@ public class Formatter {
                 return change;
             }
             String newText = change.getControlNewText();
-            if (newText.matches("^[0-9]+$")) {
+            if (newText.matches("^[0-9.]+$")) {
                 return change;
             }
             return null;
