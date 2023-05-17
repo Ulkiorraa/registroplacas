@@ -54,4 +54,30 @@ public class Formatter {
             return null;
         });
     }
+
+    public static TextFormatter<String> cpfFormatter(){
+        return new TextFormatter<>(change -> {
+            if (change.isDeleted()) {
+                return change;
+            }
+            String newText = change.getControlNewText();
+            if (newText.matches("^\\d{1,11}$")) {
+                return change;
+            }
+            return null;
+        });
+    }
+
+    public static TextFormatter<String> cnpjFormatter(){
+        return new TextFormatter<>(change -> {
+            if (change.isDeleted()) {
+                return change;
+            }
+            String newText = change.getControlNewText();
+            if (newText.matches("^\\d{1,14}$")) {
+                return change;
+            }
+            return null;
+        });
+    }
 }

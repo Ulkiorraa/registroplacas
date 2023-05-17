@@ -15,10 +15,10 @@
    <TextField fx:id="txt_preco" layoutX="167.0" layoutY="134.0" prefHeight="25.0" prefWidth="255.0" />
    <ComboBox fx:id="txt_cliente" layoutX="167.0" layoutY="160.0" prefHeight="25.0" prefWidth="255.0" />
    <TextField fx:id="txt_idsolicitante" editable="false" layoutX="167.0" layoutY="186.0" prefHeight="25.0" prefWidth="255.0" />
-   <DatePicker fx:id="txt_date" layoutX="167.0" layoutY="212.0" prefHeight="25.0" prefWidth="255.0" />
+   <DatePicker fx:id="txt_date" editable="false" layoutX="167.0" layoutY="212.0" prefHeight="25.0" prefWidth="255.0" />
    <ComboBox fx:id="txt_status" layoutX="167.0" layoutY="239.0" prefHeight="25.0" prefWidth="255.0" />
    <TextField fx:id="txt_vendedor" layoutX="165.0" layoutY="265.0" prefHeight="25.0" prefWidth="255.0" />
-   <DatePicker fx:id="txt_datefinalizacao" layoutX="165.0" layoutY="292.0" prefHeight="25.0" prefWidth="255.0" />
+   <DatePicker fx:id="txt_datefinalizacao" editable="false" layoutX="165.0" layoutY="292.0" prefHeight="25.0" prefWidth="255.0" />
    <TextField fx:id="txt_nome" layoutX="165.0" layoutY="319.0" prefHeight="25.0" prefWidth="255.0" />
    <TextField fx:id="txt_telefone" layoutX="165.0" layoutY="345.0" prefHeight="25.0" prefWidth="255.0" />
    <TextArea fx:id="txt_observacao" layoutX="165.0" layoutY="371.0" prefHeight="135.0" prefWidth="255.0" />

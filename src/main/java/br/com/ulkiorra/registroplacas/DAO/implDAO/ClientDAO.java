@@ -47,12 +47,40 @@ public class ClientDAO implements IClientDAO {
 
     @Override
     public Client update(Client client) {
-        return null;
+        PreparedStatement st = null;
+        try{
+            String query = "UPDATE clientes SET " + "nome = ?, telefone = ?, email = ?, cpf = ?, cnpj = ? , preco_padrao_und = ?, preco_padrao_par = ?" + "WHERE id = ?";
+            st = conn.prepareStatement(query);
+            st.setString(1, client.getNome());
+            st.setString(2, client.getTelefone());
+            st.setString(3, client.getEmail());
+            st.setString(4, client.getCpf());
+            st.setString(5, client.getCnpj());
+            st.setFloat(6, client.getPreco_und());
+            st.setFloat(7, client.getPreco_par());
+            st.setLong(8, client.getId());
+            st.executeUpdate();
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }finally {
+            ConnectionFactory.closeStatement(st);
+        }
+        return client;
     }
 
     @Override
-    public void delete(Long id) {
-
+    public void delete(Client id) {
+        PreparedStatement st = null;
+        try{
+            String query = "DELETE FROM clientes WHERE id = ?";
+            st = conn.prepareStatement(query);
+            st.setLong(1, id.getId());
+            st.executeUpdate();
+        }catch (SQLException e){
+            throw new DbException(e.getMessage());
+        }finally {
+            ConnectionFactory.closeStatement(st);
+        }
     }
 
     @Override
@@ -67,6 +95,7 @@ public class ClientDAO implements IClientDAO {
             rs = st.executeQuery();
             while (rs.next()) {
                 Client client = new Client();
+                client.setId(rs.getLong("id"));
                 client.setNome(rs.getString("nome"));
                 client.setTelefone(rs.getString("telefone"));
                 client.setEmail(rs.getString("email"));
@@ -74,7 +103,7 @@ public class ClientDAO implements IClientDAO {
                 client.setCpf(rs.getString("cpf"));
                 client.setCnpj(rs.getString("cnpj"));
                 client.setPreco_par(rs.getFloat("preco_padrao_par"));
-                client.setPreco_par(rs.getFloat("preco_padrao_und"));
+                client.setPreco_und(rs.getFloat("preco_padrao_und"));
                 list.add(client);
             }
             return list;

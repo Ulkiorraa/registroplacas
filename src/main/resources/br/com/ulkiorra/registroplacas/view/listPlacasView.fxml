@@ -12,8 +12,14 @@
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="691.0" prefWidth="1263.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.ulkiorra.registroplacas.controller.ListPlacasController">
+   <Label text="Placas">
+      <font>
+         <Font name="System Bold" size="28.0" />
+      </font>
+   </Label>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
         <Button mnemonicParsing="false" onAction="#onActionNew" prefHeight="19.0" prefWidth="52.0" text="New" />
+      <Button mnemonicParsing="false" onAction="#onActionPDF" prefHeight="25.0" prefWidth="82.0" text="Gerar PDF" />
     </ToolBar>
     <TableView fx:id="table_placas" prefHeight="340.0" prefWidth="1026.0">
         <columns>
@@ -26,8 +32,8 @@
             <TableColumn fx:id="table_dtestamp" prefWidth="145.5999755859375" text="Data de Estampagem" />
             <TableColumn fx:id="table_dtfin" prefWidth="125.5999755859375" text="Data de Finalização" />
             <TableColumn fx:id="table_preco" prefWidth="125.5999755859375" text="Preço" />
-            <TableColumn fx:id="table_edit" prefWidth="49.60009765625" />
-            <TableColumn fx:id="table_delete" prefWidth="49.60009765625" />
+            <TableColumn fx:id="table_edit" prefWidth="65.0" />
+            <TableColumn fx:id="table_delete" prefWidth="85.0" />
         </columns>
     </TableView>
     <AnchorPane fx:id="ancorpaine" prefHeight="317.0" prefWidth="1025.0">

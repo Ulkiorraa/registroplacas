@@ -20,7 +20,10 @@ public class PrincipalController implements Initializable {
 
     @FXML
     void onListClient() {
-
+        loadView("view/listClientView.fxml", (ListClientController controller) -> {
+            controller.setiClientDAO(DaoFactory.createClientDAO());
+            controller.updateTableView();
+        });
     }
 
     @FXML

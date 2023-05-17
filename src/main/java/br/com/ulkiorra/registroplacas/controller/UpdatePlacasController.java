@@ -166,6 +166,7 @@ public class UpdatePlacasController implements Initializable {
         txt_tipo.getItems().add(Placa_Tipo.UNIDADE);
 
         txt_placa.textProperty().addListener((observable, oldValue, newValue) -> txt_placa.setText(newValue.toUpperCase()));
+        txt_vendedor.textProperty().addListener((observable, oldValue, newValue) -> txt_vendedor.setText(newValue.toUpperCase()));
 
         txt_placa.setTextFormatter(Formatter.noSpaceFormatter());
         txt_placa.setTextFormatter(Formatter.PlacasFormatter());
@@ -188,14 +189,30 @@ public class UpdatePlacasController implements Initializable {
                         txt_preco.setText(selectedClient.getPreco_und().toString());
                     }
                     if (txt_tipo.getValue() == null){
+                        txt_cliente.setValue("none");
                         Alerts.mostrarMensagem("Escolha o tipo", null, "Escolha o tipo primeiro");
-                        return;
                     }
                 }
             } else {
                 txt_nome.clear();
                 txt_telefone.clear();
                 txt_idsolicitante.clear();
+                txt_preco.clear();
+            }
+        });
+
+        txt_tipo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && txt_cliente != null) {
+                Client selectedClient = iClientDAO.FindByName(txt_cliente.getValue());
+                if (selectedClient != null) {
+                    if (txt_tipo.getValue() == Placa_Tipo.PAR){
+                        txt_preco.setText(selectedClient.getPreco_par().toString());
+                    }
+                    if (txt_tipo.getValue() == Placa_Tipo.UNIDADE){
+                        txt_preco.setText(selectedClient.getPreco_und().toString());
+                    }
+                }
+            } else {
                 txt_preco.clear();
             }
         });

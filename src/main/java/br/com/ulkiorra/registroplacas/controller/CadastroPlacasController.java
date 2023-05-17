@@ -159,8 +159,8 @@ public class CadastroPlacasController implements Initializable {
         txt_tipo.getItems().add(Placa_Tipo.UNIDADE);
 
         txt_placa.textProperty().addListener((observable, oldValue, newValue) -> txt_placa.setText(newValue.toUpperCase()));
+        txt_vendedor.textProperty().addListener((observable, oldValue, newValue) -> txt_vendedor.setText(newValue.toUpperCase()));
 
-        txt_placa.setTextFormatter(Formatter.noSpaceFormatter());
         txt_placa.setTextFormatter(Formatter.PlacasFormatter());
         txt_nome.setTextFormatter(Formatter.noNumberFormatter());
         txt_telefone.setTextFormatter(Formatter.noLettersFormatter());
@@ -189,6 +189,22 @@ public class CadastroPlacasController implements Initializable {
                 txt_nome.clear();
                 txt_telefone.clear();
                 txt_idsolicitante.clear();
+                txt_preco.clear();
+            }
+        });
+
+        txt_tipo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && txt_cliente != null) {
+                Client selectedClient = iClientDAO.FindByName(txt_cliente.getValue());
+                if (selectedClient != null) {
+                    if (txt_tipo.getValue() == Placa_Tipo.PAR){
+                        txt_preco.setText(selectedClient.getPreco_par().toString());
+                    }
+                    if (txt_tipo.getValue() == Placa_Tipo.UNIDADE){
+                        txt_preco.setText(selectedClient.getPreco_und().toString());
+                    }
+                }
+            } else {
                 txt_preco.clear();
             }
         });

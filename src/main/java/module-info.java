@@ -6,6 +6,7 @@ module br.com.ulkiorra.registroplacas {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
+    requires itextpdf;
 
     opens br.com.ulkiorra.registroplacas to javafx.fxml;
     exports br.com.ulkiorra.registroplacas;

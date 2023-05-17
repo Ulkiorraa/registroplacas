@@ -7,6 +7,13 @@ import br.com.ulkiorra.registroplacas.model.Placas;
 import br.com.ulkiorra.registroplacas.model.Status;
 import br.com.ulkiorra.registroplacas.util.Alerts;
 import br.com.ulkiorra.registroplacas.util.Utils;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,9 +29,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -100,6 +112,73 @@ public class ListPlacasController implements Initializable, DataChangedListner {
     private Label txtlabelplaca;
 
     @FXML
+    void onActionPDF() {
+        Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Você tem certeza que deseja Gerar o pfd?");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Document document = new Document(PageSize.A4.rotate());
+            try {
+                String titulo = "Placas registradas no sistema";
+                DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                String dataAtual = LocalDate.now().format(formatoData);
+                DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+                String horaAtual = LocalTime.now().format(formatoHora);
+                String dataHoraAtual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy_HHmmss"));
+                String nomeArquivo = "pdfs/Placas/Placas_" + dataHoraAtual + ".pdf";
+                PdfWriter.getInstance(document, new FileOutputStream(nomeArquivo));
+
+                com.itextpdf.text.Paragraph tituloParagrafo = new com.itextpdf.text.Paragraph(titulo);
+                com.itextpdf.text.Paragraph dataParagrafo = new com.itextpdf.text.Paragraph("Data: " + dataAtual + " " + horaAtual);
+
+                tituloParagrafo.setAlignment(Element.ALIGN_CENTER);
+                dataParagrafo.setAlignment(Element.ALIGN_CENTER);
+
+                document.open();
+                document.add(tituloParagrafo);
+                document.add(dataParagrafo);
+                document.add(new com.itextpdf.text.Paragraph("\n"));
+
+                PdfPTable pdfTable = new PdfPTable(table_placas.getColumns().size() -2);
+                // Configurar larguras das colunas
+                float[] columnWidths = {2, 3, 3, 3, 2, 3, 3, 3, 2};
+                pdfTable.setWidths(columnWidths);
+                pdfTable.setWidthPercentage(100);
+
+                // Adicionar cabeçalho da tabela
+                for (TableColumn<Placas, ?> column : table_placas.getColumns()) {
+                    if (column.equals(table_delete) || column.equals(table_edit)) {
+                        continue; // Ignorar as colunas de exclusão e edição
+                    }
+                    PdfPCell cell = new PdfPCell(new com.itextpdf.text.Paragraph(column.getText()));
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    pdfTable.addCell(cell);
+                }
+
+                // Adicionar dados da tabela
+                for (Placas placas : table_placas.getItems()) {
+                    pdfTable.addCell(placas.getPlaca());
+                    pdfTable.addCell(placas.getClient_name());
+                    pdfTable.addCell(placas.getClient_fone());
+                    pdfTable.addCell(placas.getStatus().toString());
+                    pdfTable.addCell(placas.getVendedor());
+                    pdfTable.addCell(placas.getObservation());
+                    pdfTable.addCell(placas.getDataestampagem().toString());
+                    pdfTable.addCell(placas.getDatafinalizacao() != null ? placas.getDatafinalizacao().toString() : "");
+                    pdfTable.addCell(placas.getPreco().toString());
+                }
+
+                // Adicionar tabela ao documento
+                document.add(pdfTable);
+                document.close();
+
+                Alerts.mostrarMensagem("Parabéns",null, "PDF gerado com sucesso em: " + nomeArquivo);
+            } catch (DocumentException | FileNotFoundException e) {
+                Alerts.mostrarMensagemDeErro("Erro!","Erro ao gerar pdf", e.getMessage());
+            }
+        }
+    }
+
+    @FXML
     void onActionNew(ActionEvent event) {
         Stage parentStage = Utils.getCurrentStage(event);
         createDialogorm(parentStage);
@@ -162,7 +241,7 @@ public class ListPlacasController implements Initializable, DataChangedListner {
             CadastroPlacasController controller = fxmlLoader.getController();
             controller.subscribeDataChangeListener(this);
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Cadastro de Curso");
+            dialogStage.setTitle("Cadastro de Placas");
             dialogStage.setScene(new Scene(pane));
             dialogStage.setResizable(false);
             dialogStage.initOwner(parentStage);
