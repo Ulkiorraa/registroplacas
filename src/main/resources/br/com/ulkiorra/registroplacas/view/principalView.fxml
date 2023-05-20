@@ -10,6 +10,7 @@
     <VBox prefHeight="431.0" prefWidth="441.0">
         <MenuBar prefHeight="25.0" prefWidth="259.0">
             <Menu mnemonicParsing="false" text="Listas">
+            <MenuItem mnemonicParsing="false" onAction="#onListPedidos" text="Pedidos" />
                 <MenuItem mnemonicParsing="false" onAction="#onListUser" text="Usuário" />
                 <MenuItem mnemonicParsing="false" onAction="#onListPlacas" text="Placas" />
                 <MenuItem mnemonicParsing="false" onAction="#onListClient" text="Clientes" />

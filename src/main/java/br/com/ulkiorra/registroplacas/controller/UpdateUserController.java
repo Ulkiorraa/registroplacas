@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CadastroUserController implements Initializable {
+public class UpdateUserController implements Initializable {
+
+    private User entity;
 
     private final List<DataChangedListner> dataChangeListeners = new ArrayList<>();
 
@@ -27,6 +29,10 @@ public class CadastroUserController implements Initializable {
 
     @FXML
     private TextField txt_user;
+
+    public void setEntity(User entity) {
+        this.entity = entity;
+    }
 
     @FXML
     void onBtnCad(ActionEvent event) {
@@ -52,15 +58,16 @@ public class CadastroUserController implements Initializable {
         }
 
         User user1 = new User();
+        user1.setId(entity.getId());
         user1.setUser(user);
         user1.setPassword(password);
 
-        User cadastradoComSucesso = iUserDAO.create(user1);
+        User cadastradoComSucesso = iUserDAO.update(user1);
         if (cadastradoComSucesso != null) {
-            Alerts.mostrarMensagem("Information", null, "Cadastro bem sucedido!");
+            Alerts.mostrarMensagem("Information", null, "Update bem sucedido!");
             notifyDataChangeListeners();
         } else {
-            Alerts.mostrarMensagemDeErro("Erro", null, "Cadastro falhou!");
+            Alerts.mostrarMensagemDeErro("Erro", null, "Update falhou!");
         }
 
         Utils.getCurrentStage(event).close();
@@ -80,6 +87,11 @@ public class CadastroUserController implements Initializable {
         txt_user.setTextFormatter(Formatter.noNumberFormatter());
         txt_user.setTextFormatter(Formatter.noSpaceFormatter());
         txt_pass.setTextFormatter(Formatter.noSpaceFormatter());
+    }
+
+    public void updateFormData(){
+        txt_user.setText(entity.getUser());
+        txt_pass.setText(entity.getPassword());
     }
 
     private void notifyDataChangeListeners() {

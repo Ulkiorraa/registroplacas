@@ -36,6 +36,14 @@ public class PrincipalController implements Initializable {
 
     @FXML
     void onListUser() {
+        loadView("view/listUserView.fxml", (ListUserController controller) -> {
+            controller.setiUserDAO(DaoFactory.createUserDAO());
+            controller.updateTableView();
+        });
+    }
+
+    @FXML
+    void onListPedidos() {
 
     }
 
