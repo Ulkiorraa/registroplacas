@@ -15,12 +15,13 @@ public class Placas {
     String vendedor;
     LocalDate dataestampagem;
     LocalDate datafinalizacao;
+    LocalDate datapedido;
 
 
     public Placas() {
     }
 
-    public Placas(Long id, Long clientId, String placa, Placa_Tipo tipo, Float preco, String client_fone, String client_name, Status status, String observation, String vendedor, LocalDate dataestampagem, LocalDate datafinalizacao) {
+    public Placas(Long id, Long clientId, String placa, Placa_Tipo tipo, Float preco, String client_fone, String client_name, Status status, String observation, String vendedor, LocalDate dataestampagem, LocalDate datafinalizacao, LocalDate datapedido) {
         this.id = id;
         this.clientId = clientId;
         this.placa = placa;
@@ -33,6 +34,15 @@ public class Placas {
         this.vendedor = vendedor;
         this.dataestampagem = dataestampagem;
         this.datafinalizacao = datafinalizacao;
+        this.datapedido = datapedido;
+    }
+
+    public LocalDate getDatapedido() {
+        return datapedido;
+    }
+
+    public void setDatapedido(LocalDate datapedido) {
+        this.datapedido = datapedido;
     }
 
     public Float getPreco() {

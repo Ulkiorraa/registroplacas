@@ -44,7 +44,10 @@ public class PrincipalController implements Initializable {
 
     @FXML
     void onListPedidos() {
-
+        loadView("view/listPedidoPlacasView.fxml", (ListPedidoPlacasController controller) -> {
+            controller.setiPlacasDAO(DaoFactory.createPlacasDAO());
+            controller.updateTableView();
+        });
     }
 
     @FXML

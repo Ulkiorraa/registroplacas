@@ -18,6 +18,10 @@ public class PlacasDAO implements IPlacasDAO {
         this.conn = conn;
     }
 
+    public boolean Open(){
+        return ConnectionFactory.isOpen();
+    }
+
     @Override
     public Placas create(Placas placas) {
         PreparedStatement st = null;
@@ -120,7 +124,7 @@ public class PlacasDAO implements IPlacasDAO {
             rs = st.executeQuery();
             while (rs.next()) {
                 Placas placas = new Placas();
-               placas.setId(rs.getLong("id"));
+                placas.setId(rs.getLong("id"));
                 placas.setPlaca(rs.getString("placa"));
                 placas.setStatus(Status.valueOf(rs.getString("status")));
                 String observation = rs.getString("observation");
@@ -156,5 +160,45 @@ public class PlacasDAO implements IPlacasDAO {
     @Override
     public List<Placas> FindByName(String name) {
         return null;
+    }
+
+    @Override
+    public List<Placas> FindByStatus(Status status) {
+        List<Placas> list = new ArrayList<>();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            String query = "SELECT * FROM placas WHERE status = ?";
+            st = conn.prepareStatement(query);
+            st.setString(1, status.toString());
+            st.executeQuery();
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Placas placas = new Placas();
+                placas.setId(rs.getLong("id"));
+                placas.setPlaca(rs.getString("placa"));
+                placas.setStatus(Status.valueOf(rs.getString("status")));
+                String observation = rs.getString("observation");
+                placas.setObservation(!rs.wasNull() ? observation : null);
+                placas.setObservation(rs.getString("observation"));
+                long clientId = rs.getLong("cliente_id");
+                placas.setClientId(!rs.wasNull() ? clientId : null);
+                placas.setClient_name(rs.getString("client_name"));
+                placas.setClient_fone(rs.getString("client_fone"));
+                String vendedor = rs.getString("vendedor");
+                placas.setVendedor(!rs.wasNull() ? vendedor : null);
+                placas.setPreco(rs.getFloat("preco"));
+                placas.setTipo(Placa_Tipo.valueOf(rs.getString("tipo")));
+                LocalDate datePedido = rs.getDate("datapedido") != null ? rs.getDate("datapedido").toLocalDate() : null;
+                placas.setDatafinalizacao(datePedido);
+                list.add(placas);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            ConnectionFactory.closeStatement(st);
+            ConnectionFactory.closeResultSet(rs);
+        }
     }
 }

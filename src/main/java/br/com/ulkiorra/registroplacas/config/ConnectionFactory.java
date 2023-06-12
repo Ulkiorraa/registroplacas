@@ -23,7 +23,7 @@ public class ConnectionFactory {
         return conn;
     }
 
-    public static  void closeConnection(){
+    public static void closeConnection(){
         if(conn != null){
             try{
                 conn.close();
@@ -62,4 +62,13 @@ public class ConnectionFactory {
             }
         }
     }
+
+    public static boolean isOpen() {
+        try {
+            return conn != null && !conn.isClosed();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+
 }

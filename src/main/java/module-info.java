@@ -7,6 +7,9 @@ module br.com.ulkiorra.registroplacas {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires itextpdf;
+    requires spring.boot.starter;
+    requires spring.boot.starter.web;
+    requires spring.boot.starter.data.jpa;
 
     opens br.com.ulkiorra.registroplacas to javafx.fxml;
     exports br.com.ulkiorra.registroplacas;
