@@ -162,7 +162,7 @@ public class ListPlacasController implements Initializable, DataChangedListner {
                     pdfTable.addCell(placas.getStatus().toString());
                     pdfTable.addCell(placas.getVendedor());
                     pdfTable.addCell(placas.getObservation());
-                    pdfTable.addCell(placas.getDataestampagem().toString());
+                    pdfTable.addCell(placas.getDataestampagem() != null ? placas.getDataestampagem().toString() : "");
                     pdfTable.addCell(placas.getDatafinalizacao() != null ? placas.getDatafinalizacao().toString() : "");
                     pdfTable.addCell(placas.getPreco().toString());
                 }
@@ -196,7 +196,11 @@ public class ListPlacasController implements Initializable, DataChangedListner {
                 txtlabelplaca.setText(newValue.getPlaca());
                 labelnome.setText(newValue.getClient_name());
                 labelfone.setText(newValue.getClient_fone());
-                labeldtf.setText(newValue.getDataestampagem().toString());
+                if(newValue.getDataestampagem() != null){
+                    labeldtf.setText(newValue.getDataestampagem().toString());
+                }else {
+                    labeldtf.setText("");
+                }
                 if(newValue.getDatafinalizacao() != null){
                     labeldtfn.setText(newValue.getDatafinalizacao().toString());
                 }else {

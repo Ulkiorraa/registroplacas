@@ -130,7 +130,8 @@ public class PlacasDAO implements IPlacasDAO {
                 String observation = rs.getString("observation");
                 placas.setObservation(!rs.wasNull() ? observation : null);
                 placas.setObservation(rs.getString("observation"));
-                placas.setDataestampagem(rs.getDate("dataestampagem").toLocalDate());
+                LocalDate dataestampagem = rs.getDate("dataestampagem") != null ? rs.getDate("dataestampagem").toLocalDate() : null;
+                placas.setDataestampagem(dataestampagem);
                 LocalDate dateFinalizacao = rs.getDate("datafinalizacao") != null ? rs.getDate("datafinalizacao").toLocalDate() : null;
                 placas.setDatafinalizacao(dateFinalizacao);
                 long clientId = rs.getLong("cliente_id");
